@@ -1,0 +1,6 @@
+# ignore all
+*
+
+# but the sof file
+!*.sof
+!.gitignore
