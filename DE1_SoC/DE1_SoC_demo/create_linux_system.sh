@@ -492,19 +492,22 @@ set -e
 mkdir -p "${sdcard_a2_dir}"
 mkdir -p "${sdcard_fat32_dir}"
 
-compile_quartus_project
-compile_preloader
-compile_uboot
-compile_linux
-create_rootfs
+#compile_quartus_project
+#compile_preloader
+#compile_uboot
+#compile_linux
+#create_rootfs
 
 # Write sdcard if it exists
 if [ -z "${sdcard_dev}" ]; then
     echo "sdcard argument not provided => no sdcard written."
 
 elif [ -b "${sdcard_dev}" ]; then
-    partition_sdcard
+    #partition_sdcard
     write_sdcard
 fi
+
+#finally create the Header File for HPS (to access FPGA Peripherals)
+sopc-create-header-files hw/quartus/soc_system.sopcinfo --single sw/hps/application/hps_soc_system.h --module hps_0
 
 # Make sure MSEL = 000000

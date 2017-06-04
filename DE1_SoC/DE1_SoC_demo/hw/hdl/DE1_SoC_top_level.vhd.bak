@@ -40,17 +40,17 @@ entity DE1_SoC_top_level is
      -- CLOCK4_50        : in    std_logic;
 
         -- SDRAM
-        --DRAM_ADDR  : out   std_logic_vector(12 downto 0);
-        --DRAM_BA    : out   std_logic_vector(1 downto 0);
-        --DRAM_CAS_N : out   std_logic;
-        --DRAM_CKE   : out   std_logic;
-        --DRAM_CLK   : out   std_logic;
-        --DRAM_CS_N  : out   std_logic;
-        --DRAM_DQ    : inout std_logic_vector(15 downto 0);
-        --DRAM_LDQM  : out   std_logic;
-        --DRAM_RAS_N : out   std_logic;
-        --DRAM_UDQM  : out   std_logic;
-        --DRAM_WE_N  : out   std_logic;
+        DRAM_ADDR  : out   std_logic_vector(12 downto 0);
+        DRAM_BA    : out   std_logic_vector(1 downto 0);
+        DRAM_CAS_N : out   std_logic;
+        DRAM_CKE   : out   std_logic;
+        DRAM_CLK   : out   std_logic;
+        DRAM_CS_N  : out   std_logic;
+        DRAM_DQ    : inout std_logic_vector(15 downto 0);
+        DRAM_LDQM  : out   std_logic;
+        DRAM_RAS_N : out   std_logic;
+        DRAM_UDQM  : out   std_logic;
+        DRAM_WE_N  : out   std_logic;
 
         -- I2C for Audio and Video-In
      -- FPGA_I2C_SCLK    : out   std_logic;
@@ -239,16 +239,17 @@ architecture rtl of DE1_SoC_top_level is
             hps_0_io_hps_io_gpio_inst_GPIO61         : inout std_logic                     := 'X';
             pll_0_sdram_clk                          : out   std_logic;
             reset_reset_n                            : in    std_logic                     := 'X';
-            --sdram_controller_0_wire_addr             : out   std_logic_vector(12 downto 0);
-            --sdram_controller_0_wire_ba               : out   std_logic_vector(1 downto 0);
-            --sdram_controller_0_wire_cas_n            : out   std_logic;
-            --sdram_controller_0_wire_cke              : out   std_logic;
-            --sdram_controller_0_wire_cs_n             : out   std_logic;
-            --sdram_controller_0_wire_dq               : inout std_logic_vector(15 downto 0) := (others => 'X');
-            --sdram_controller_0_wire_dqm              : out   std_logic_vector(1 downto 0);
-            --sdram_controller_0_wire_ras_n            : out   std_logic;
-            --sdram_controller_0_wire_we_n             : out   std_logic;
-            mutex_leds_export    						  : out   std_logic_vector(9 downto 0)
+            sdram_controller_0_wire_addr             : out   std_logic_vector(12 downto 0);
+            sdram_controller_0_wire_ba               : out   std_logic_vector(1 downto 0);
+            sdram_controller_0_wire_cas_n            : out   std_logic;
+            sdram_controller_0_wire_cke              : out   std_logic;
+            sdram_controller_0_wire_cs_n             : out   std_logic;
+            sdram_controller_0_wire_dq               : inout std_logic_vector(15 downto 0) := (others => 'X');
+            sdram_controller_0_wire_dqm              : out   std_logic_vector(1 downto 0);
+            sdram_controller_0_wire_ras_n            : out   std_logic;
+            sdram_controller_0_wire_we_n             : out   std_logic;
+            nios_leds_external_connection_export     : out   std_logic_vector(4 downto 0);
+            hps_fpga_leds_external_connection_export : out   std_logic_vector(4 downto 0)
         );
     end component soc_system;
 
@@ -327,18 +328,19 @@ begin
         hps_0_io_hps_io_gpio_inst_GPIO53         => HPS_LED,
         hps_0_io_hps_io_gpio_inst_GPIO54         => HPS_KEY_N,
         hps_0_io_hps_io_gpio_inst_GPIO61         => HPS_GSENSOR_INT,
-        --pll_0_sdram_clk                          => DRAM_CLK,
+        pll_0_sdram_clk                          => DRAM_CLK,
         reset_reset_n                            => KEY_N(0),
-        --sdram_controller_0_wire_addr             => DRAM_ADDR,
-        --sdram_controller_0_wire_ba               => DRAM_BA,
-        --sdram_controller_0_wire_cas_n            => DRAM_CAS_N,
-        --sdram_controller_0_wire_cke              => DRAM_CKE,
-        --sdram_controller_0_wire_cs_n             => DRAM_CS_N,
-        --sdram_controller_0_wire_dq               => DRAM_DQ,
-        --sdram_controller_0_wire_dqm(1)           => DRAM_UDQM,
-        --sdram_controller_0_wire_dqm(0)           => DRAM_LDQM,
-        --sdram_controller_0_wire_ras_n            => DRAM_RAS_N,
-        --sdram_controller_0_wire_we_n             => DRAM_WE_N,
-        mutex_leds_export 							 	 => LEDR(9 downto 0)
+        sdram_controller_0_wire_addr             => DRAM_ADDR,
+        sdram_controller_0_wire_ba               => DRAM_BA,
+        sdram_controller_0_wire_cas_n            => DRAM_CAS_N,
+        sdram_controller_0_wire_cke              => DRAM_CKE,
+        sdram_controller_0_wire_cs_n             => DRAM_CS_N,
+        sdram_controller_0_wire_dq               => DRAM_DQ,
+        sdram_controller_0_wire_dqm(1)           => DRAM_UDQM,
+        sdram_controller_0_wire_dqm(0)           => DRAM_LDQM,
+        sdram_controller_0_wire_ras_n            => DRAM_RAS_N,
+        sdram_controller_0_wire_we_n             => DRAM_WE_N,
+        nios_leds_external_connection_export     => LEDR(4 downto 0),
+        hps_fpga_leds_external_connection_export => LEDR(9 downto 5)
     );
 end;
