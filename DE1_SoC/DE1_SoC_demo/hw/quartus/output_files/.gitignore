@@ -1,6 +1,6 @@
-# ignore all
+# ignore everything
 *
 
-# but the sof file
-!*.sof
+#but the sof file and the gitignore
+!.sof
 !.gitignore
