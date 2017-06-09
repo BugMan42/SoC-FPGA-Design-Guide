@@ -842,7 +842,7 @@
   <parameter name="dcache_bursts" value="false" />
   <parameter name="dcache_numTCDM" value="0" />
   <parameter name="dcache_ramBlockType" value="Automatic" />
-  <parameter name="dcache_size" value="2048" />
+  <parameter name="dcache_size" value="0" />
   <parameter name="dcache_tagramBlockType" value="Automatic" />
   <parameter name="dcache_victim_buf_impl" value="ram" />
   <parameter name="debug_OCIOnchipTrace" value="_128" />
